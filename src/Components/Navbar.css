@@ -1,0 +1,81 @@
+/* Reset body and html to prevent horizontal scroll */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Navbar: full width background with padding */
+.navbar {
+  background-color: rgb(8, 141, 26);
+  padding: 1rem;
+  box-sizing: border-box;   /* include padding in width calculation */
+  width: 100%;              /* full container width */
+}
+
+/* Inner container: limited width, centered */
+.navbar-container {
+  display: flex;
+  justify-content: center;   /* center menu horizontally */
+  align-items: center;
+  max-width: 800px;          /* max width of navbar content */
+  margin: 0 auto;            /* center content horizontally */
+  width: 100%;
+}
+
+/* Navigation menu */
+.menu {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links inside the menu */
+.menu-link {
+  color: white;
+  text-decoration: none;
+  background: #026102;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.menu-link:hover {
+  background: hsl(118, 80%, 34%);
+}
+
+/* Hamburger menu button (mobile) */
+.menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column; /* stack button and menu vertically */
+    align-items: flex-start; 
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    margin-top: 1rem;
+    width: 100%; /* full width in mobile */
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .menu-btn {
+    display: block;
+    align-self: flex-end; /* hamburger button aligned right */
+  }
+}

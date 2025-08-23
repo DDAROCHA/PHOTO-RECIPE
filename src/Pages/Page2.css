@@ -1,0 +1,44 @@
+.page2-container {
+  background-color: #a2fa9fff;
+  color: black;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 50px; /* espacio para el footer */
+}
+
+.page2-container h4 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Recuadro igual al de Page1 */
+.page2-block {
+  width: 350px;
+  border: 1px solid rgb(8, 141, 26);
+  padding: 15px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+.page2-block h5 {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #0656a5;
+}
+
+/* Footer fijo abajo */
+.page2-footer {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #f30303;
+}

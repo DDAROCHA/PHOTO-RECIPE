@@ -1,0 +1,77 @@
+/* Contenedor principal */
+.page1-container {
+  position: relative;
+  background-color: #a2fa9fff;
+  color: black;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.page1-container h4 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Recuadro de respuesta */
+.page1-block {
+  width: 100%;
+  max-width: 600px;
+  min-height: 120px;
+  border: 1px solid rgb(8, 141, 26);
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: #fff;
+  overflow-wrap: break-word;
+  resize: vertical;
+  z-index: 1;
+}
+
+/* Frutas animadas */
+.fruit {
+  position: absolute;
+  opacity: 0.3;            /* 🔹 más transparentes */
+  animation: float 25s linear infinite;
+  z-index: 5;              /* 🔹 ENCIMA de todo */
+  pointer-events: none;    /* 🔹 no bloquean clics en input/botón */
+}
+
+/* Tamaños y posiciones variadas */
+.fruit:nth-child(1)  { font-size: 2rem; left: 5%;  animation-duration: 22s; }
+.fruit:nth-child(2)  { font-size: 3rem; left: 15%; animation-duration: 28s; }
+.fruit:nth-child(3)  { font-size: 1.5rem; left: 25%; animation-duration: 26s; }
+.fruit:nth-child(4)  { font-size: 2.5rem; left: 35%; animation-duration: 30s; }
+.fruit:nth-child(5)  { font-size: 2rem; left: 45%; animation-duration: 24s; }
+.fruit:nth-child(6)  { font-size: 3.5rem; left: 55%; animation-duration: 32s; }
+.fruit:nth-child(7)  { font-size: 1.8rem; left: 65%; animation-duration: 27s; }
+.fruit:nth-child(8)  { font-size: 2.8rem; left: 75%; animation-duration: 29s; }
+.fruit:nth-child(9)  { font-size: 2rem; left: 85%; animation-duration: 33s; }
+.fruit:nth-child(10) { font-size: 3rem; left: 95%; animation-duration: 26s; }
+.fruit:nth-child(11) { font-size: 2.5rem; left: 10%; animation-duration: 34s; }
+.fruit:nth-child(12) { font-size: 1.7rem; left: 30%; animation-duration: 31s; }
+.fruit:nth-child(13) { font-size: 2.2rem; left: 50%; animation-duration: 29s; }
+.fruit:nth-child(14) { font-size: 2.9rem; left: 70%; animation-duration: 27s; }
+.fruit:nth-child(15) { font-size: 1.9rem; left: 90%; animation-duration: 35s; }
+
+/* Animación */
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  20% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
