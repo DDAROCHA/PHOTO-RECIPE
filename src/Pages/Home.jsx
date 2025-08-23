@@ -1,70 +1,73 @@
 import React, { useState } from "react";
-import { runFlow, getRespuestaPorCodigo } from "../services/backend";
 import { Spinner } from "../Components/Spinner/Spinner";
-import { Input } from "../Components/Input/Input";
+import { uploadImage, saveFotoRecord, getRecetaPorCodigo } from "../services/backend";
 import "./Home.css";
 
 export function Home() {
+  const [selectedImage, setSelectedImage] = useState(null);
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleAsk = async (question) => {
-    if (!question.trim()) {
-      alert("Please enter a question.");
-      return;
-    }
+  const handleImageSelect = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-    const codigo = Date.now().toString(); // 🔹 código único
-    setLoading(true);
+    setSelectedImage(URL.createObjectURL(file)); // vista previa
     setAnswer("");
+    setLoading(true);
+
+    const codigo = Date.now().toString();
 
     try {
-      await runFlow(question, codigo);
+      // 🔹 Subir la imagen a Backendless Files
+      const fotoUrl = await uploadImage(file, codigo);
 
-      // 🔹 Polling cada 2s hasta encontrar respuesta
+      // 🔹 Crear registro en tabla Fotos
+      await saveFotoRecord(codigo, fotoUrl);
+
+      // 🔹 Polling hasta encontrar respuesta
       const checkInterval = setInterval(async () => {
-        const registro = await getRespuestaPorCodigo(codigo);
+        const registro = await getRecetaPorCodigo(codigo);
         if (registro) {
           clearInterval(checkInterval);
-          setAnswer(registro.Respuesta || "No response found.");
+          setAnswer(registro.Receta || "No recipe found.");
           setLoading(false);
         }
       }, 2000);
     } catch (err) {
-      console.error("Error running flow:", err.message);
-      setAnswer("There was an error getting the response");
+      console.error("Error processing image:", err.message);
+      setAnswer("There was an error processing the image.");
       setLoading(false);
     }
   };
 
   return (
     <div className="page1-container">
-      {/* Frutas animadas de fondo */}
-      <div className="fruit">🍎</div>
-      <div className="fruit">🍌</div>
-      <div className="fruit">🍇</div>
-      <div className="fruit">🍊</div>
-      <div className="fruit">🍓</div>
-      <div className="fruit">🍍</div>
-      <div className="fruit">🥝</div>
-      <div className="fruit">🍑</div>
-      <div className="fruit">🍉</div>
-      <div className="fruit">🍒</div>
-      <div className="fruit">🍋</div>
-      <div className="fruit">🍐</div>
-      <div className="fruit">🍈</div>
-      <div className="fruit">🥭</div>
-      <div className="fruit">🍏</div>
+      <h4>Upload a food photo to get the recipe</h4>
 
-      <h4>Ask me anything about fruits</h4>
+      {/* Botón para seleccionar imagen */}
+      <label className="select-image-btn">
+        Select Image
+        <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          style={{ display: "none" }}
+          onChange={handleImageSelect}
+        />
+      </label>
 
-      {/* Input para la pregunta */}
-      <Input onSubmit={handleAsk} />
+      {/* Vista previa de la imagen */}
+      {selectedImage && (
+        <div className="image-preview">
+          <img src={selectedImage} alt="Selected food" />
+        </div>
+      )}
 
       {/* Recuadro de respuesta */}
       <div className="page1-block">
         {loading ? (
-          <Spinner text="Thinking..." />
+          <Spinner text="Fetching recipe..." />
         ) : (
           <div
             className="page1-line"
