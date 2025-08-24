@@ -1,0 +1,24 @@
+.select-image-btn {
+  background: #2e2e2e;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 25px;
+  border: none;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.select-image-btn:hover {
+  background: #444;
+  transform: scale(1.03);
+}
+
+.camera-icon {
+  font-size: 1.2rem;
+}

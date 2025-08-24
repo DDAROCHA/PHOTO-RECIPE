@@ -1,7 +1,6 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './Pages/Home';
 import { Page2 } from './Pages/Page2';
-import { Layout } from './Layout';
 
 import './App.css';
 import logo from './logo.png';
@@ -41,10 +40,10 @@ function App() {
       <div className="App-content">
         <Router>
           <Routes>
-            <Route element={<Layout />}>
+
               <Route path="/" element={<Home />} />
               <Route path="/Page2" element={<Page2 />} />
-            </Route>
+
           </Routes>
         </Router>
       </div>
