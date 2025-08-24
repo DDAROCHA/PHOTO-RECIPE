@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { Spinner } from "../Components/Spinner/Spinner";
-import {
-  uploadImage,
-  saveFotoRecord,
-  getRecetaPorCodigo,
-} from "../services/backend";
-import { Link } from "react-router-dom";
-import { HelpCircle } from "lucide-react"; // 🔹 Icono más lindo
+import { uploadImage, saveFotoRecord, getRecetaPorCodigo } from "../services/backend";
 import "./Home.css";
 
 export function Home() {
@@ -18,16 +12,21 @@ export function Home() {
     const file = event.target.files[0];
     if (!file) return;
 
+    // Vista previa local
     setSelectedImage(URL.createObjectURL(file));
     setAnswer("");
     setLoading(true);
 
-    const codigo = Date.now().toString();
+    const codigo = Date.now().toString(); // 🔹 Código único
 
     try {
+      // 1. Subir la imagen a Backendless Files
       const fotoUrl = await uploadImage(file);
+
+      // 2. Crear registro en tabla Fotos
       await saveFotoRecord(codigo, fotoUrl);
 
+      // 3. Polling hasta encontrar Estado = "Terminado"
       const checkInterval = setInterval(async () => {
         const registro = await getRecetaPorCodigo(codigo);
         if (registro) {
@@ -45,35 +44,31 @@ export function Home() {
 
   return (
     <div className="page1-container">
-      {/* Icono de ayuda moderno */}
-      <div className="help-icon">
-        <Link to="/Page2">
-          <HelpCircle size={28} />
-        </Link>
-      </div>
+      <h4>Upload a food photo to get the recipe</h4>
 
-      <h4 className="page-title">Upload a food photo to get the recipe</h4>
-
+      {/* Botón para seleccionar imagen */}
       <label className="select-image-btn">
         Select Image
         <input
           type="file"
           accept="image/*"
-          capture="environment"
+          capture="environment" // permite cámara en móviles
           style={{ display: "none" }}
           onChange={handleImageSelect}
         />
       </label>
 
+      {/* Vista previa */}
       {selectedImage && (
         <div className="image-preview">
           <img src={selectedImage} alt="Selected food" />
         </div>
       )}
 
+      {/* Recuadro de respuesta */}
       <div className="page1-block">
         {loading ? (
-          <Spinner text="Fetching recipe... This may take a while with complex images or recipes!" />
+          <Spinner text="Fetching recipe..." />
         ) : (
           <div
             className="page1-line"

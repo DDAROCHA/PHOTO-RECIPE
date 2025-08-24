@@ -1,4 +1,4 @@
-import React from "react";
+
 import "./Spinner.css";
 
 export function Spinner({ text = "Loading..." }) {

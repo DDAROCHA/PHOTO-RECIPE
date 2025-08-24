@@ -5,11 +5,11 @@ const API_KEY = "BC70880E-34E2-4992-AB6C-C87592ED3A5B";
 
 Backendless.initApp(APP_ID, API_KEY);
 
-// 🔹 Subir archivo a Backendless Files
-export async function uploadImage(file) {
-  const path = "uploads"; // carpeta en Files
+// 🔹 Subir archivo a Files
+export async function uploadImage(file, codigo) {
+  const path = "uploads"; // carpeta en Backendless Files
   const result = await Backendless.Files.upload(file, path, true);
-  return result.fileURL; // devuelve el URL público
+  return result.fileURL;
 }
 
 // 🔹 Guardar registro en Fotos
