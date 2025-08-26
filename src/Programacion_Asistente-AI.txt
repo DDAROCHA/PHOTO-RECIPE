@@ -30,3 +30,5 @@ INSTRUCCIONES PARA GENERAR EL TEXTO DE RESPUESTA:
 -Y se debe usar <br> cada vez que se cambie de renglon. Insertar todos los <br> necesarios para que quede armonioso y organizado.
 -Ademas inserta emoticones relacionados donde creas conveniete para hacer la receta mas pintoresca y divertida.
 
+MANEJO DE ERRORES:
+-Si se produce un error al cargar la imagen, interpretarla o por otro motivo colocar el mensaje de error en el campo "respuesta".
