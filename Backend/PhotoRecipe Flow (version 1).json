@@ -1,0 +1,696 @@
+{
+  "flow": {
+    "id": "509BD4B0-0C50-4393-B24A-4FE70F8E0A91",
+    "name": "PhotoRecipe"
+  },
+  "flowVersion": {
+    "id": "3B588279-2868-5948-BBC8-7A9817A8C18B",
+    "description": null,
+    "firstElementId": "59484D88-B7C2-C3F8-1C81-F5182278D8E8",
+    "elements": [
+      {
+        "id": "F55C1698-A1B4-CF88-2E38-C188530849F8",
+        "name": "AI Transform Operation",
+        "flowElementId": "445BDE08-4CDF-43D8-C2F8-D938D3589723",
+        "groupId": null,
+        "type": "DATA_TRANSFORMER",
+        "nextElementIds": [
+          "79B8C968-4328-2928-F187-EFA87BA8C5FA"
+        ],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "position": {
+            "x": 1425,
+            "y": 390
+          },
+          "elementId": "data-transformer",
+          "resultAlias": "AI Transform Operation Result",
+          "isFirstElement": false,
+          "blockDefinitionId": "data-transformer",
+          "setResultToVariable": false
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": true,
+          "logging": {
+            "input": {
+              "logData": false,
+              "message": null
+            },
+            "output": {
+              "logData": false,
+              "message": null
+            }
+          },
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "operationId": "ai.openAi.transform",
+          "params": [
+            {
+              "mode": "EXPRESSION",
+              "expression": [
+                {
+                  "id": "EXECUTION_CONTEXT_DATA_BUCKET_VARIABLE",
+                  "label": "Default - FotoPath",
+                  "value": "executionContext.dataBuckets.Default.FotoPath",
+                  "subPath": null,
+                  "type": "EXECUTION_CONTEXT_PATH"
+                }
+              ],
+              "resultType": null
+            },
+            {
+              "mode": "EXPRESSION",
+              "expression": [
+                {
+                  "id": "TEXT",
+                  "label": null,
+                  "value": "Tomar el valor de la variable ingresada y regresarlo en formato JSON  de la siguiente manera:\n\n{\n    \"imagen\": \"Texto\"\n}\n-En el campo \"imagen\" colocas el texto de la variable de entrada",
+                  "type": "INPUT"
+                }
+              ],
+              "resultType": null
+            }
+          ],
+          "saveToVariable": null,
+          "enabled": true,
+          "simulationResult": null
+        }
+      },
+      {
+        "id": "186A3568-4218-D538-79FE-78E171EB6DBC",
+        "name": "Save Record In Database",
+        "flowElementId": "4E480B48-D825-A298-91A8-5B58E888AF9F",
+        "groupId": null,
+        "type": "ACTION",
+        "nextElementIds": [
+          "F55C1698-A1B4-CF88-2E38-C188530849F8"
+        ],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "tableId": "AB1D9B7C-B44E-4DB3-AF9A-830CC349718A",
+          "position": {
+            "x": 1014,
+            "y": 159
+          },
+          "elementId": "save-record",
+          "dataSource": null,
+          "resultAlias": "Save Record In Database Result",
+          "operationType": "update_with_query",
+          "isFirstElement": false,
+          "blockDefinitionId": "save-record"
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": false,
+          "logging": {
+            "input": {
+              "logData": false,
+              "message": null
+            },
+            "output": {
+              "logData": false,
+              "message": null
+            }
+          },
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "type": "BACKENDLESS",
+          "slaConditions": [],
+          "enabled": true,
+          "simulationResult": null,
+          "subtype": "GENERAL",
+          "userSession": null,
+          "httpMethod": "PUT",
+          "responseType": "OBJECT",
+          "uriTemplate": "/data/bulk/Fotos",
+          "uriParams": [
+            {
+              "type": "SIMPLE",
+              "name": "where",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "Codigo =",
+                    "type": "INPUT"
+                  },
+                  {
+                    "id": "RESULT",
+                    "label": "Record Created in Fotos",
+                    "value": "59484D88-B7C2-C3F8-1C81-F5182278D8E8",
+                    "subPath": "Codigo",
+                    "type": "TRIGGER_DATA"
+                  }
+                ],
+                "resultType": null
+              }
+            }
+          ],
+          "bodyParams": [
+            {
+              "type": "SIMPLE",
+              "name": "Estado",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "Procesando",
+                    "type": "INPUT"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "Receta",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "RESULT",
+                    "label": "Record Created in Fotos",
+                    "value": "59484D88-B7C2-C3F8-1C81-F5182278D8E8",
+                    "subPath": "Foto",
+                    "type": "TRIGGER_DATA"
+                  }
+                ],
+                "resultType": null
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "Log",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "EXECUTION_CONTEXT_DATA_BUCKET_VARIABLE",
+                    "label": "Default - FotoPath",
+                    "value": "executionContext.dataBuckets.Default.FotoPath",
+                    "subPath": null,
+                    "type": "EXECUTION_CONTEXT_PATH"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            }
+          ],
+          "uriPlaceholderValues": []
+        },
+        "serverFields": {
+          "learningStatus": "OFF"
+        }
+      },
+      {
+        "id": "59484D88-B7C2-C3F8-1C81-F5182278D8E8",
+        "name": "Record Created in Database",
+        "flowElementId": "60586911-42F8-C5F4-C1D7-C27E60B88ADB",
+        "groupId": null,
+        "type": "TRIGGER",
+        "nextElementIds": [
+          "5BC83235-B378-7B4A-4D1A-3B5867EE26E8"
+        ],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "position": {
+            "x": 588,
+            "y": 267
+          },
+          "elementId": "record-created",
+          "resultAlias": "Record Created in Fotos",
+          "isFirstElement": true,
+          "blockDefinitionId": "record-created"
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": true,
+          "logging": {
+            "input": {
+              "logData": false,
+              "message": null
+            },
+            "output": null
+          },
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "type": "EVENT",
+          "condition": null,
+          "authInfo": {
+            "type": "NONE",
+            "requiredRoles": [],
+            "onFailPolicy": "ERROR"
+          },
+          "slaConditions": [],
+          "service": "DATA_SERVICE",
+          "operationId": 1,
+          "tableId": "AB1D9B7C-B44E-4DB3-AF9A-830CC349718A",
+          "objectId": null
+        },
+        "serverFields": {
+          "learningStatus": "LEARNED"
+        }
+      },
+      {
+        "id": "79B8C968-4328-2928-F187-EFA87BA8C5FA",
+        "name": "CHEF",
+        "flowElementId": "6661C704-2348-E111-421C-86DEB9489528",
+        "groupId": null,
+        "type": "ACTION",
+        "nextElementIds": [
+          "1C3219AE-F92D-F93F-121B-D296E5CED328"
+        ],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "position": {
+            "x": 1466,
+            "y": 174
+          },
+          "elementId": "B7542724-DED2-487B-B672-FAA98511D71A",
+          "resultAlias": "CHEF Result",
+          "assistantName": "CHEF",
+          "isFirstElement": false,
+          "blockDefinitionId": "ai-assistant"
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": true,
+          "logging": {
+            "input": {
+              "logData": false,
+              "message": null
+            },
+            "output": {
+              "logData": false,
+              "message": null
+            }
+          },
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "type": "AI_ASSISTANT",
+          "slaConditions": [],
+          "enabled": true,
+          "simulationResult": null,
+          "assistantId": "B7542724-DED2-487B-B672-FAA98511D71A",
+          "message": {
+            "mode": "EXPRESSION",
+            "expression": [
+              {
+                "id": "ELEMENT_RESULT",
+                "label": "AI Transform Operation Result",
+                "value": "F55C1698-A1B4-CF88-2E38-C188530849F8",
+                "subPath": null,
+                "type": "ELEMENT_LINK"
+              }
+            ],
+            "resultType": null
+          },
+          "toolsResources": [],
+          "images": {
+            "staticFiles": [],
+            "dynamicFiles": []
+          }
+        },
+        "serverFields": {
+          "learningStatus": "OFF"
+        }
+      },
+      {
+        "id": "1C3219AE-F92D-F93F-121B-D296E5CED328",
+        "name": "Save Record In Database (2)",
+        "flowElementId": "81D83638-94F8-C8AA-8A48-33B8CB7FCA88",
+        "groupId": null,
+        "type": "ACTION",
+        "nextElementIds": [
+          "B1C89858-F6B8-BA09-E9F8-CD48562806C8"
+        ],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "tableId": "AB1D9B7C-B44E-4DB3-AF9A-830CC349718A",
+          "position": {
+            "x": 1783,
+            "y": 186.99999999999991
+          },
+          "elementId": "save-record",
+          "dataSource": null,
+          "resultAlias": "Save Record In Database (2) Result",
+          "operationType": "update_with_query",
+          "isFirstElement": false,
+          "blockDefinitionId": "save-record"
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": true,
+          "logging": {
+            "input": {
+              "logData": false,
+              "message": null
+            },
+            "output": {
+              "logData": false,
+              "message": null
+            }
+          },
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "type": "BACKENDLESS",
+          "slaConditions": [],
+          "enabled": true,
+          "simulationResult": null,
+          "subtype": "GENERAL",
+          "userSession": null,
+          "httpMethod": "PUT",
+          "responseType": "OBJECT",
+          "uriTemplate": "/data/bulk/Fotos",
+          "uriParams": [
+            {
+              "type": "SIMPLE",
+              "name": "where",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "Codigo =",
+                    "type": "INPUT"
+                  },
+                  {
+                    "id": "RESULT",
+                    "label": "Record Created in Fotos",
+                    "value": "59484D88-B7C2-C3F8-1C81-F5182278D8E8",
+                    "subPath": "Codigo",
+                    "type": "TRIGGER_DATA"
+                  }
+                ],
+                "resultType": null
+              }
+            }
+          ],
+          "bodyParams": [
+            {
+              "type": "SIMPLE",
+              "name": "Estado",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "Terminado",
+                    "type": "INPUT"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "Receta",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "ELEMENT_RESULT",
+                    "label": "CHEF Result",
+                    "value": "79B8C968-4328-2928-F187-EFA87BA8C5FA",
+                    "subPath": "decision.respuesta",
+                    "type": "ELEMENT_LINK"
+                  }
+                ],
+                "resultType": null
+              }
+            }
+          ],
+          "uriPlaceholderValues": []
+        },
+        "serverFields": {
+          "learningStatus": "OFF"
+        }
+      },
+      {
+        "id": "5BC83235-B378-7B4A-4D1A-3B5867EE26E8",
+        "name": "Set Variables",
+        "flowElementId": "8D384A38-D1D8-6BA1-DFC5-6468BCA78AC2",
+        "groupId": null,
+        "type": "DATA_BUCKET",
+        "nextElementIds": [
+          "186A3568-4218-D538-79FE-78E171EB6DBC"
+        ],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "position": {
+            "x": 1065,
+            "y": 375
+          },
+          "elementId": "data-bucket",
+          "resultAlias": null,
+          "isFirstElement": false,
+          "blockDefinitionId": "data-bucket"
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": true,
+          "logging": null,
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "bucketName": "Default",
+          "fields": [
+            {
+              "type": "SIMPLE",
+              "name": "FotoPath",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "RESULT",
+                    "label": "Record Created in Fotos",
+                    "value": "59484D88-B7C2-C3F8-1C81-F5182278D8E8",
+                    "subPath": "Foto",
+                    "type": "TRIGGER_DATA"
+                  }
+                ],
+                "resultType": null
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "B1C89858-F6B8-BA09-E9F8-CD48562806C8",
+        "name": "Send Message",
+        "flowElementId": "E858C6B8-6498-6D57-0588-7FB8B00AA03D",
+        "groupId": null,
+        "type": "ACTION",
+        "nextElementIds": [],
+        "nextGroupIds": [],
+        "clientMetadata": {
+          "notes": "Sends emails through Gmail for AI agents to automate customer communication, send notifications, deliver reports, or trigger follow-up messages. Perfect for automated support responses, marketing campaigns, or personalized outreach based on user actions.",
+          "methodId": "JS###v1###GmailService###sendMessage",
+          "position": {
+            "x": 1905,
+            "y": 405
+          },
+          "elementId": "JS###v1###GmailService###sendMessage",
+          "methodName": "sendMessage",
+          "resultAlias": "Send Message Result",
+          "isFirstElement": false,
+          "blockDefinitionId": "api-service-method"
+        },
+        "metaInfo": {
+          "onFailElemId": null,
+          "storeResult": true,
+          "logging": {
+            "input": {
+              "logData": false,
+              "message": null
+            },
+            "output": {
+              "logData": false,
+              "message": null
+            }
+          },
+          "clientValidationState": {
+            "valid": true,
+            "errorMessage": null
+          },
+          "type": "BACKENDLESS",
+          "slaConditions": [],
+          "enabled": true,
+          "simulationResult": null,
+          "subtype": "API_SERVICE",
+          "userSession": null,
+          "serviceName": "GmailService",
+          "modelName": "v1",
+          "lang": "JS",
+          "methodName": "sendMessage",
+          "connectionId": "a6d52240-1748-4c9a-a9ed-91e5a6e03280",
+          "hostType": "SHARED",
+          "uriPlaceholderValues": [],
+          "uriParams": [],
+          "bodyParams": [
+            {
+              "type": "SIMPLE",
+              "name": "to",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "ddarocha00@gmail.com",
+                    "type": "INPUT"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "subject",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "Se uso Photo-Recipe",
+                    "type": "INPUT"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "bodyType",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "TEXT",
+                    "label": null,
+                    "value": "html",
+                    "type": "INPUT"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "body content",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [
+                  {
+                    "id": "ELEMENT_RESULT",
+                    "label": "CHEF Result",
+                    "value": "79B8C968-4328-2928-F187-EFA87BA8C5FA",
+                    "subPath": "decision.respuesta",
+                    "type": "ELEMENT_LINK"
+                  }
+                ],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "from",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "cc",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [],
+                "resultType": "ARRAY"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "bcc",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [],
+                "resultType": "ARRAY"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "threadId",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [],
+                "resultType": "STRING"
+              }
+            },
+            {
+              "type": "SIMPLE",
+              "name": "attachments",
+              "value": {
+                "mode": "EXPRESSION",
+                "expression": [],
+                "resultType": "STRING"
+              }
+            }
+          ]
+        },
+        "serverFields": {
+          "learningStatus": "OFF"
+        }
+      }
+    ],
+    "groups": [],
+    "clientMetadata": {
+      "autoSave": true,
+      "viewport": {
+        "x": -938.9319680901464,
+        "y": -123.84110471741178,
+        "zoom": 1
+      }
+    },
+    "metaInfo": {
+      "wasLive": true,
+      "schedule": null,
+      "errorMessage": null,
+      "sharedMemory": {
+        "anchor": {
+          "type": "FLOW_MEMORY",
+          "path": null,
+          "missingAnchorPolicy": null
+        },
+        "expirationInSec": null
+      },
+      "executionStaticData": [],
+      "initialData": null,
+      "ownerFlowVersionId": null
+    }
+  },
+  "slaGoals": [],
+  "slaCalendars": [],
+  "subFlows": [],
+  "exportDate": "2025-08-26T17:28:24.227Z"
+}
